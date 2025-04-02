@@ -1,17 +1,29 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Country stats</title>
-	<link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Data</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-	<div class="dropdown">
-		<button class="dropdown-button">Select Country</button>
-		<div id="country-options" class="dropdown-content"></div>
-	</div>
+    <h1>Country Data</h1>
+    <table id="countryTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable('name')">Country Name</th>
+                <th onclick="sortTable('code')">Alpha-2 Code</th>
+                <th onclick="sortTable('region')">Region</th>
+                <th onclick="sortTable('population')">Population</th>
+                <th onclick="sortTable('gdp')">GDP</th>
+                <th onclick="sortTable('gdpPerCapita')">GDP per Capita</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added here by JavaScript -->
+        </tbody>
+    </table>
+
     <script src="main.js"></script>
 </body>
 </html>
