@@ -65,7 +65,6 @@ function displayCountries(countries) {
         const row = document.createElement('tr');
 
         const countryName = country.name || 'N/A';
-        const countryCode = country.id || 'N/A';
         const region = country.region ? country.region.value : 'N/A';
         const population = country.population !== null ? country.population : 'N/A';
         const gdp = country.gdp !== null ? Math.round(country.gdp) : 'N/A';
@@ -73,7 +72,6 @@ function displayCountries(countries) {
 
         row.innerHTML = `
             <td>${countryName}</td>
-            <td>${countryCode}</td>
             <td>${region}</td>
             <td>${population !== 'N/A' ? population.toLocaleString() : 'N/A'}</td>
             <td>${gdp !== 'N/A' ? gdp.toLocaleString() : 'N/A'}</td>
@@ -98,9 +96,9 @@ function sortTable(column) {
     previousColumn = column;
 
     rows.sort((a, b) => {
-        const aText = a.children[column === 'name' ? 0 : column === 'code' ? 1 : column === 'region' ? 2 : column === 'population' ? 3 : column === 'gdp' ? 4 : 5].textContent.replace(/,/g, '').replace(/\s/g, '').trim();
-        const bText = b.children[column === 'name' ? 0 : column === 'code' ? 1 : column === 'region' ? 2 : column === 'population' ? 3 : column === 'gdp' ? 4 : 5].textContent.replace(/,/g, '').replace(/\s/g, '').trim();
-
+        const aText = a.children[column === 'name' ? 0 : column === 'region' ? 1 : column === 'population' ? 2 : column === 'gdp' ? 3 : 4].textContent.replace(/,/g, '').replace(/\s/g, '').trim();
+        const bText = b.children[column === 'name' ? 0 : column === 'region' ? 1 : column === 'population' ? 2 : column === 'gdp' ? 3 : 4].textContent.replace(/,/g, '').replace(/\s/g, '').trim();
+    
         if (isNumericColumn) {
             const aNum = aText === 'N/A' ? 0 : Math.round(parseFloat(aText));
             const bNum = bText === 'N/A' ? 0 : Math.round(parseFloat(bText));
