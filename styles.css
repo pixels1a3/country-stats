@@ -1,16 +1,39 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
 }
-th {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    cursor: pointer;
+
+header {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    padding-bottom: 50px;
+}
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
     background-color: #f2f2f2;
 }
-td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+
+.table-striped tbody tr:hover {
+    background-color: #e2e2e2;
+}
+
+.table th {
+    cursor: pointer;
+}
+
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
 }

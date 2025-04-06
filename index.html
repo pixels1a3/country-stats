@@ -3,28 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Country Data</title>
+    <title>Worldwide Country Data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Country Data</h1>
-    <table id="countryTable">
-        <thead>
-            <tr>
-                <th onclick="sortTable('name')">Country</th>
-                <th onclick="sortTable('region')">Region</th>
-                <th onclick="sortTable('population')">Population</th>
-                <th onclick="sortTable('gdp')">GDP (nominal)</th>
-				<th onclick="sortTable('gdpPPP')">GDP (PPP)</th>
-                <th onclick="sortTable('gdpPerCapita')">GDP per Capita (nominal)</th>
-                <th onclick="sortTable('gdpPerCapitaPPP')">GDP per Capita (PPP)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be added here by JavaScript -->
-        </tbody>
-    </table>
-
+    <header class="bg-info text-white text-center py-4">
+        <h1>Worldwide Country Data</h1>
+        <p>Most recent worldwide data, obtained from the World Bank.</p>
+    </header>
+    <div class="container mt-4">
+        <table id="countryTable" class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th onclick="sortTable('name')" scope="col">Country Name <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable('region')" scope="col">Region <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable('population')" scope="col">Population <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable('gdp')" scope="col">GDP (nominal) <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable('gdpPPP')" scope="col">GDP (PPP) <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable('gdpPerCapita')" scope="col">GDP per Capita (nominal) <i class="fas fa-sort"></i></th>
+                    <th onclick="sortTable('gdpPerCapitaPPP')" scope="col">GDP per Capita (PPP) <i class="fas fa-sort"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically added here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+        <p>Placeholder</p>
+    </footer>
     <script src="main.js"></script>
 </body>
 </html>
