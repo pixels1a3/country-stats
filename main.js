@@ -22,7 +22,7 @@ async function fetchCountries() {
         }
     }
 
-    // Fetch additional data for population etc.
+    // Fetch additional data for GDP etc.
     await fetchAdditionalData(countries);
 }
 
@@ -31,14 +31,9 @@ async function fetchAdditionalData(countries) {
 
     const additionalData = await Promise.all(filteredCountries.map(async (country) => {
         const countryCode = country.id;
-        let population, gdp, gdpPPP, gdpPerCapita, gdpPerCapitaPPP;
+        let gdp, gdpPPP, gdpPerCapita, gdpPerCapitaPPP;
 
         try {
-            // Fetch population
-            const populationResponse = await fetch(`http://api.worldbank.org/v2/country/${countryCode}/indicator/SP.POP.TOTL?format=json`);
-            const populationData = await populationResponse.json();
-            population = populationData[1] && populationData[1].length > 0 ? populationData[1][0].value : 'N/A';
-
             // Fetch GDP (nominal)
             const gdpResponse = await fetch(`http://api.worldbank.org/v2/country/${countryCode}/indicator/NY.GDP.MKTP.CD?format=json`);
             const gdpData = await gdpResponse.json();
@@ -61,10 +56,10 @@ async function fetchAdditionalData(countries) {
 
         } catch (error) {
             console.error(`Error retrieving additional data for ${countryCode}:`, error);
-            population = gdp = gdpPPP = gdpPerCapita = gdpPerCapitaPPP = 'N/A';
+            gdp = gdpPPP = gdpPerCapita = gdpPerCapitaPPP = 'N/A';
         }
 
-        return { ...country, population, gdp, gdpPPP, gdpPerCapita, gdpPerCapitaPPP };
+        return { ...country, gdp, gdpPPP, gdpPerCapita, gdpPerCapitaPPP };
     }));
 
     displayCountries(additionalData);
@@ -73,13 +68,12 @@ async function fetchAdditionalData(countries) {
 function displayCountries(countries) {
     const tbody = document.querySelector('#countryTable tbody');
     tbody.innerHTML = '';
-    
+
     countries.forEach(country => {
         const row = document.createElement('tr');
 
         const countryName = country.name || 'N/A';
         const region = country.region ? country.region.value : 'N/A';
-        const population = country.population !== null ? country.population : 'N/A';
         const gdp = country.gdp !== null ? Math.round(country.gdp) : 'N/A';
         const gdpPPP = country.gdpPPP !== null ? Math.round(country.gdpPPP) : 'N/A';
         const gdpPerCapita = country.gdpPerCapita !== null ? Math.round(country.gdpPerCapita) : 'N/A';
@@ -88,7 +82,6 @@ function displayCountries(countries) {
         row.innerHTML = `
             <td>${countryName}</td>
             <td>${region}</td>
-            <td>${population !== 'N/A' ? population.toLocaleString() : 'N/A'}</td>
             <td>${gdp !== 'N/A' ? gdp.toLocaleString() : 'N/A'}</td>
             <td>${gdpPPP !== 'N/A' ? gdpPPP.toLocaleString() : 'N/A'}</td>
             <td>${gdpPerCapita !== 'N/A' ? gdpPerCapita.toLocaleString() : 'N/A'}</td>
@@ -104,7 +97,6 @@ function sortTable(column) {
     const rows = Array.from(tbody.querySelectorAll('tr'));
 
     const isNumericColumn = (
-        column === 'population' || 
         column === 'gdp' || 
         column === 'gdpPPP' || 
         column === 'gdpPerCapita' || 
@@ -121,20 +113,18 @@ function sortTable(column) {
     rows.sort((a, b) => {
         const aText = a.children[column === 'name' ? 0 :
                           column === 'region' ? 1 :
-                          column === 'population' ? 2 :
-                          column === 'gdp' ? 3 :
-                          column === 'gdpPPP' ? 4 :
-                          column === 'gdpPerCapita' ? 5 :
-                          column === 'gdpPerCapitaPPP' ? 6 :
+                          column === 'gdp' ? 2 :
+                          column === 'gdpPPP' ? 3 :
+                          column === 'gdpPerCapita' ? 4 :
+                          column === 'gdpPerCapitaPPP' ? 5 :
                           0].textContent.replace(/,/g, '').replace(/\s/g, '').trim();
         
         const bText = b.children[column === 'name' ? 0 :
                           column === 'region' ? 1 :
-                          column === 'population' ? 2 :
-                          column === 'gdp' ? 3 :
-                          column === 'gdpPPP' ? 4 :
-                          column === 'gdpPerCapita' ? 5 :
-                          column === 'gdpPerCapitaPPP' ? 6 :
+                          column === 'gdp' ? 2 :
+                          column === 'gdpPPP' ? 3 :
+                          column === 'gdpPerCapita' ? 4 :
+                          column === 'gdpPerCapitaPPP' ? 5 :
                           0].textContent.replace(/,/g, '').replace(/\s/g, '').trim();
 
         if (isNumericColumn) {

@@ -14,6 +14,11 @@ header {
 .table {
     border-radius: 10px;
     overflow: hidden;
+    min-width: 1200px; /* Increase minimum width for the table */
+}
+
+.table th, .table td {
+    padding: 15px 20px; /* Increase padding for headers and cells */
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
