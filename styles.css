@@ -9,16 +9,19 @@ header {
 
 .container {
     padding-bottom: 50px;
+    display: flex; 
+    justify-content: center;
 }
 
 .table {
     border-radius: 10px;
     overflow: hidden;
-    min-width: 1200px; /* Increase minimum width for the table */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .table th, .table td {
-    padding: 15px 20px; /* Increase padding for headers and cells */
+    padding: 8px 12px; 
+    white-space: nowrap; 
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
