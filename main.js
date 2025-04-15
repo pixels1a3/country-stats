@@ -1,5 +1,6 @@
 let previousColumn = '';
 let sortOrder = 'asc';
+let allCountries = [];
 
 async function fetchCountries() {
     const baseUrl = 'http://api.worldbank.org/v2/country?format=json&page=';
@@ -67,14 +68,21 @@ async function fetchAdditionalData(countries) {
         return { ...country, gdp, gdpPPP, gdpPerCapita, gdpPerCapitaPPP, lifeExpectancy, literacy };
     }));
 
-    displayCountries(additionalData);
+    allCountries = additionalData;
+    displayCountries(allCountries);
 }
 
 function displayCountries(countries) {
     const tbody = document.querySelector('#countryTable tbody');
     tbody.innerHTML = '';
 
-    const sortedCountries = [...countries].sort((a, b) => {
+    const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+
+    const filteredCountries = countries.filter(country =>
+        (country.name || 'N/A').toLowerCase().includes(searchTerm)
+    );
+
+    const sortedCountries = [...filteredCountries].sort((a, b) => {
         const aName = a.name || 'N/A';
         const bName = b.name || 'N/A';
         return aName.localeCompare(bName);
@@ -148,4 +156,16 @@ function sortTable(column) {
     rows.forEach(row => tbody.appendChild(row));
 }
 
-window.onload = fetchCountries;
+function setupSearch() {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            displayCountries(allCountries);
+        });
+    }
+}
+
+window.onload = () => {
+    fetchCountries();
+    setupSearch();
+};
